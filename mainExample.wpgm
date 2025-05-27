@@ -1,6 +1,4 @@
-import wollok.game.*
-
-import example.pepita
+import rodados.*
 
 program PepitaGame {
 	game.title("Pepita")
@@ -12,7 +10,7 @@ program PepitaGame {
 
 	//
 
-	game.showAttributes(pepita) //Debug
+	game.showAttributes(Kwid) //Debug
 
 	game.start()
 }

@@ -1,9 +1,77 @@
-import example.pepita
+import rodados.*
 
-describe "group of tests for pepita" {
+describe "Test de rodados"{
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  const deportes = new Dependencia (empleados = 45)
+  const cultura = new Dependencia (empleados = 31)
+  const cachito = new Corsa(color='azul')
+
+  method initialize(){
+    deportes.add(cachito)
+    deportes.add(new Corsa(color ='azul'))
+    deportes.add(new Kwid(tanqueAdicional = true))
+    deportes.add(new AutoEspecial(capacidad = 5, velocidad = 160, peso = 1200, color = 'beige'))
+  
+    cultura.add(cachito)
+    cultura.add(new Kwid (tanqueAdicional = true))
+    cultura.add(new Kwid (tanqueAdicional = true))
+    cultura.add(new Kwid (tanqueAdicional = false))
+    trafic.interior(popular)
+    trafic.motor(bataton)
+    cultura.add(trafic)
+
   }
 
+  
+
+  test "rodado"{
+    assert.equals(6450, deportes.pesoTotalFlota())
+    assert.equals(10700, cultura.pesoTotalFlota())
+
+    assert.equals(7, deportes.capacidadTotalEnColor('azul'))
+    //assert.equals(, cultura.capacidadTotalEnColor('azul'))
+
+    assert.that(deportes.estaBieEquipada())
+    assert.notThat(cultura.estaBieEquipada())
+
+    //assert.equals(,deportes.colorDelRodadoMasRapido())
+    //assert.equals(,cultura.colorDelRodadoMasRapido())
+
+    assert.that(deportes.esGrande())
+    assert.that(cultura.esGrande())
+
+    //assert.equals(,deportes.capacidadFaltante())
+    //assert.equals(,cultura.capacidadFaltante())
+  }
+}
+
+describe "test de pedidos" {
+
+  const pedido1 = new Pedidos(distancia=960, tiempoMax=8, pasajeros=4, coloresIncompatibles = #{"azul", "marron"})
+  const pedido2 = new Pedidos(distancia=960, tiempoMax=8, pasajeros=4, coloresIncompatibles = #{"rojo", "marron"})
+  const pedido3 = new Pedidos(distancia=960, tiempoMax=8, pasajeros=4, coloresIncompatibles = #{"marron"})
+  const cachito = new Corsa(color="rojo")
+  const deportes = new Dependencia (empleados = 45, pedidos = [pedido1, pedido2, pedido3])
+
+  test "cachito puede hacer pedido" {
+    assert.that(pedido1.rodadoPuedeHacerPedido(cachito))
+  }
+
+  test "pedido1 ahora tiene 6 pasajeros y no puede hacer el pedido" {
+    pedido1.pasajeros(6)
+    assert.notThat(pedido1.rodadoPuedeHacerPedido(cachito))
+  }
+
+  test "pedido1 ahora tiempo maximo 6 horas y no puede hacer el pedido" {
+    pedido1.tiempoMax(6)
+    assert.notThat(pedido1.rodadoPuedeHacerPedido(cachito))
+  }
+
+
+  test "todos los pedidos tienen el color marron" {
+    assert.that(deportes.pedidosColorIncompatible("marron"))
+  }
+  
+  
+  
 }
